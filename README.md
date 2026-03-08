@@ -34,7 +34,7 @@ Ouvrez le fichier `includes/db.php` et adaptez les paramètres selon votre confi
 
 ```php
 define('DB_HOST', 'localhost');
-define('DB_PORT', 8889);
+define('DB_PORT', 3306);
 define('DB_USER', 'root');
 define('DB_PASS', 'root');
 define('DB_NAME', 'ecein');
@@ -60,8 +60,7 @@ URL : `http://localhost:8888/ecein/`
 |-------|--------------------|-------------|
 | Admin | admin@ece.fr       | password    |
 | User  | alice@ece.fr       | password    |
-| User  | bob@ece.fr         | password    |
-| User  | clara@ece.fr       | password    |
+
 
 ---
 
@@ -114,7 +113,7 @@ ecein/
 - Inscription avec validation email `@ece.fr` obligatoire
 - Connexion avec `password_hash` / `password_verify`
 - Sessions PHP + protection des pages avec `requireLogin()`
-- Deux rôles : **auteur** et **administrateur**
+- Deux rôles : **administrateur** et **utilisateur**
 
 ### 2. Page Accueil (Fil d'actualité)
 - Événement de la semaine (dernier post de l'admin mis en avant)
