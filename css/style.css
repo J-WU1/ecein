@@ -1,0 +1,59 @@
+/* css/style.css — Styles personnalisés ECE In */
+
+/* Variables de couleur */
+
+/* On définit les couleurs principales du site en variables CSS réutilisables */
+:root {
+    --ece-blue:   #003a7d;   /* Bleu foncé ECE, couleur principale */
+    --ece-light:  #0056b3;   /* Bleu clair ECE, pour les hover et dégradés */
+    --ece-yellow: #f5a623;   /* Jaune ECE, pour les accents et bordures */
+    --bg-light:   #f4f2ee;   /* Fond gris clair, couleur de fond général du site */
+}
+
+/* Global */
+
+/* Style de base appliqué à toute la page */
+body {
+    background-color: var(--bg-light);              /* Fond gris clair défini plus haut */
+    font-family: 'Segoe UI', Arial, sans-serif;     /* Police moderne et lisible */
+    color: #333;                                  /* Couleur du texte : gris foncé */
+}
+
+/* Couleur des liens par défaut */
+a { color: var(--ece-light); }
+/* Couleur des liens au survol */
+a:hover { color: var(--ece-blue); }
+
+/* Navbar */
+
+/* Classe personnalisée pour le fond bleu ECE de la navbar Bootstrap */
+.bg-ece { background-color: var(--ece-blue) !important; }
+
+/* Badge logo "ECEin" affiché dans la navbar à gauche */
+.ece-logo-badge {
+    background: white;           /* Fond blanc pour faire ressortir le logo */
+    color: var(--ece-blue);        /* Texte bleu ECE */
+    font-weight: 900;              /* Texte très gras */
+    font-size: 1rem;               /* Taille normale */
+    padding: 2px 8px;              /* Espacement intérieur */
+    border-radius: 6px;            /* Coins arrondis */
+    letter-spacing: 1px;           /* Espacement entre les lettres */
+}
+
+/* Style des liens de navigation dans la navbar */
+.navbar .nav-link {
+    text-align: center;                            /* Texte centré sous l'icône */
+    font-size: 0.75rem;                            /* Texte petit comme LinkedIn */
+    color: rgba(255,255,255,0.75) !important;    /* Blanc semi-transparent par défaut */
+    padding: 6px 14px;                             /* Espacement autour du lien */
+    border-radius: 6px;                            /* Coins arrondis au survol */
+    transition: background 0.2s;                   /* Animation fluide au survol */
+}
+/* Lien actif ou survolé : fond légèrement blanc et texte blanc plein */
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+    background: rgba(255,255,255,0.15);    /* Fond blanc transparent au survol */
+    color: #fff !important;                /* Texte blanc pur */
+}
+/* Taille des icônes Bootstrap Icons dans la navbar */
+.navbar .nav-link i { font-size: 1.2rem; }
