@@ -66,7 +66,7 @@ CREATE TABLE posts (
 
 
 -- REACTIONS (like, love, etc.)
--- ---------------------------------------------------------------
+
 CREATE TABLE reactions (
     id          INT AUTO_INCREMENT PRIMARY KEY,
     post_id     INT NOT NULL,
@@ -78,9 +78,9 @@ CREATE TABLE reactions (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- ---------------------------------------------------------------
+
 -- COMMENTAIRES
--- ---------------------------------------------------------------
+
 CREATE TABLE comments (
     id          INT AUTO_INCREMENT PRIMARY KEY,
     post_id     INT NOT NULL,
@@ -91,9 +91,9 @@ CREATE TABLE comments (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- ---------------------------------------------------------------
+
 -- AMIS / RÉSEAU
--- ---------------------------------------------------------------
+
 CREATE TABLE friendships (
     id          INT AUTO_INCREMENT PRIMARY KEY,
     user_id     INT NOT NULL,         -- celui qui envoie la demande
@@ -105,9 +105,9 @@ CREATE TABLE friendships (
     FOREIGN KEY (friend_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- ---------------------------------------------------------------
+
 -- MESSAGES PRIVÉS
--- ---------------------------------------------------------------
+
 CREATE TABLE messages (
     id          INT AUTO_INCREMENT PRIMARY KEY,
     sender_id   INT NOT NULL,
@@ -119,9 +119,7 @@ CREATE TABLE messages (
     FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- ---------------------------------------------------------------
 -- NOTIFICATIONS
--- ---------------------------------------------------------------
 CREATE TABLE notifications (
     id          INT AUTO_INCREMENT PRIMARY KEY,
     user_id     INT NOT NULL,          -- destinataire
