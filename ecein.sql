@@ -131,4 +131,105 @@ CREATE TABLE notifications (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- Fichier en cours de création
+-- EMPLOIS
+CREATE TABLE jobs (
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    titre       VARCHAR(150) NOT NULL,
+    entreprise  VARCHAR(150) NOT NULL,
+    lieu        VARCHAR(100),
+    type        ENUM('CDI','CDD','Stage','Alternance','Freelance') NOT NULL,
+    description TEXT,
+    lien        VARCHAR(255),
+    posted_by   INT,                   -- admin qui a posté
+    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (posted_by) REFERENCES users(id) ON DELETE SET NULL
+);
+
+-- ALBUMS PHOTOS
+CREATE TABLE albums (
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    user_id     INT NOT NULL,
+    titre       VARCHAR(150) NOT NULL,
+    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE album_photos (
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    album_id    INT NOT NULL,
+    post_id     INT NOT NULL,          -- lien vers le post contenant la photo
+    FOREIGN KEY (album_id) REFERENCES albums(id) ON DELETE CASCADE,
+    FOREIGN KEY (post_id)  REFERENCES posts(id)  ON DELETE CASCADE
+);
+
+
+-- DONNÉES DE TEST
+
+-- Admin
+INSERT INTO users (pseudo, email, password, nom, prenom, role, bio, poste)
+VALUES (
+    'admin',
+    'admin@ece.fr',
+    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', -- password: password
+    'Admin',
+    'ECE',
+    'admin',
+    'Administrateur de la plateforme ECE In',
+    'Administrateur'
+);
+
+-- Utilisateurs de test
+INSERT INTO users (pseudo, email, password, nom, prenom, role, bio, poste, entreprise)
+VALUES
+('alice_dupont', 'alice@ece.fr',
+ '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+ 'Dupont', 'Alice', 'auteur',
+ 'Étudiante ING2 passionnée par le développement web et l\'IA.',
+ 'Étudiante Ingénieure', 'ECE Paris'),
+
+('bob_martin', 'bob@ece.fr',
+ '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+ 'Martin', 'Bob', 'auteur',
+ 'Alternant en cybersécurité, fan de CTF.',
+ 'Alternant Cybersécurité', 'Thales'),
+
+('clara_petit', 'clara@ece.fr',
+ '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+ 'Petit', 'Clara', 'auteur',
+ 'Chercheuse en traitement du signal à ECE.',
+ 'Enseignante-Chercheuse', 'ECE Paris');
+
+-- Formations de test
+INSERT INTO formations (user_id, titre, etablissement, date_debut, date_fin, description)
+VALUES
+(2, 'Cycle Ingénieur', 'ECE Paris', 2022, 2027, 'Spécialisation Numérique & Intelligence Artificielle'),
+(2, 'Baccalauréat Scientifique', 'Lycée Henri IV', 2019, 2022, 'Mention Très Bien'),
+(3, 'Cycle Ingénieur', 'ECE Paris', 2021, 2026, 'Spécialisation Cybersécurité'),
+(4, 'Doctorat Traitement du Signal', 'Sorbonne Université', 2015, 2018, '');
+
+-- Amitiés de test
+INSERT INTO friendships (user_id, friend_id, status) VALUES
+(2, 3, 'accepted'),
+(2, 4, 'accepted'),
+(3, 4, 'pending');
+
+-- Posts de test
+INSERT INTO posts (user_id, contenu, visibilite, lieu) VALUES
+(2, 'Super journée à l\'ECE, notre projet web avance bien ! 🚀', 'public', 'ECE Paris'),
+(3, 'Nouvel article sur la cybersécurité des objets connectés publié sur mon profil.', 'public', 'Paris'),
+(4, 'Conférence sur le traitement du signal demain à 14h amphi A. Tout le monde est bienvenu !', 'public', 'ECE Paris');
+
+-- Offres d'emploi de test
+INSERT INTO jobs (titre, entreprise, lieu, type, description, posted_by) VALUES
+('Stage Développeur Web', 'ECE Paris', 'Paris 15e', 'Stage',
+ 'Stage de fin d\'études de 6 mois. Stack : PHP, MySQL, JS. Rejoignez l\'équipe DSI de l\'ECE.', 1),
+('Alternance Cybersécurité', 'Thales', 'Vélizy-Villacoublay', 'Alternance',
+ 'Rejoignez notre équipe CERT. Profil : réseaux, sécurité, pentest.', 1),
+('CDI Enseignant-Chercheur', 'ECE Paris', 'Paris', 'CDI',
+ 'Poste ouvert en département Électronique et Traitement du Signal.', 1);
+
+-- Notifications de test
+INSERT INTO notifications (user_id, type, contenu, lien) VALUES
+(2, 'event', 'Conférence sur le traitement du signal demain à 14h', 'index.php'),
+(2, 'friend_request', 'Clara Petit vous a envoyé une demande de connexion', 'reseau.php'),
+(3, 'job', 'Nouvelle offre : Stage Développeur Web chez ECE Paris', 'emplois.php');
