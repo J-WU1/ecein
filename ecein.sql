@@ -181,19 +181,19 @@ VALUES (
 -- Utilisateurs de test
 INSERT INTO users (pseudo, email, password, nom, prenom, role, bio, poste, entreprise)
 VALUES
-('alice_dupont', 'alice@ece.fr',
+('alice_dupont', 'alice@edu.ece.fr',
  '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
  'Dupont', 'Alice', 'auteur',
  'Étudiante ING2 passionnée par le développement web et l\'IA.',
  'Étudiante Ingénieure', 'ECE Paris'),
 
-('bob_martin', 'bob@ece.fr',
+('bob_martin', 'bob@edu.ece.fr',
  '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
  'Martin', 'Bob', 'auteur',
  'Alternant en cybersécurité, fan de CTF.',
  'Alternant Cybersécurité', 'Thales'),
 
-('clara_petit', 'clara@ece.fr',
+('clara_petit', 'clara@edu.ece.fr',
  '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
  'Petit', 'Clara', 'auteur',
  'Chercheuse en traitement du signal à ECE.',
