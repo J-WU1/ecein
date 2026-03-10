@@ -68,4 +68,56 @@ if ($action === 'react') {
         }
     }
 
-// Fichier en cours de développement
+    // Recompte le total des réactions
+    $stmtCount = $conn->prepare("SELECT COUNT(*) AS nb FROM reactions WHERE post_id = ?");
+    $stmtCount->bind_param("i", $postId);
+    $stmtCount->execute();
+    $count = $stmtCount->get_result()->fetch_assoc()['nb'];
+
+    echo json_encode(['success' => true, 'reacted' => $reacted, 'count' => $count]);
+    exit();
+}
+
+// ACTION : Ajouter un commentaire sur un post
+if ($action === 'comment') {
+    $postId  = (int) ($_POST['post_id'] ?? 0);
+    $contenu = trim($_POST['contenu']   ?? '');
+
+    if (!$contenu || !$postId) {
+        echo json_encode(['success' => false]);
+        exit();
+    }
+
+    // Insère le commentaire
+    $stmt = $conn->prepare("INSERT INTO comments (post_id, user_id, contenu) VALUES (?, ?, ?)");
+    $stmt->bind_param("iis", $postId, $userId, $contenu);
+    $stmt->execute();
+
+    // Récupère les infos de l'utilisateur pour les afficher côté client
+    $stmtUser = $conn->prepare("SELECT prenom, nom, photo FROM users WHERE id = ?");
+    $stmtUser->bind_param("i", $userId);
+    $stmtUser->execute();
+    $user = $stmtUser->get_result()->fetch_assoc();
+
+    // Notification à l'auteur du post
+    $stmtPost = $conn->prepare("SELECT user_id FROM posts WHERE id = ?");
+    $stmtPost->bind_param("i", $postId);
+    $stmtPost->execute();
+    $post = $stmtPost->get_result()->fetch_assoc();
+
+    if ($post && $post['user_id'] != $userId) {
+        $msg = e($user['prenom']) . ' ' . e($user['nom']) . ' a commenté votre publication.';
+        createNotification($conn, $post['user_id'], 'comment', $msg, '../index.php');
+    }
+
+    echo json_encode([
+        'success' => true,
+        'contenu' => htmlspecialchars($contenu, ENT_QUOTES, 'UTF-8'),
+        'prenom'  => htmlspecialchars($user['prenom'], ENT_QUOTES, 'UTF-8'),
+        'nom'     => htmlspecialchars($user['nom'], ENT_QUOTES, 'UTF-8'),
+        'photo'   => htmlspecialchars($user['photo'], ENT_QUOTES, 'UTF-8'),
+    ]);
+    exit();
+}
+
+echo json_encode(['success' => false, 'error' => 'Action inconnue']);
