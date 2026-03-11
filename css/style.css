@@ -1,59 +1,247 @@
 /* css/style.css — Styles personnalisés ECE In */
 
-/* Variables de couleur */
-
-/* On définit les couleurs principales du site en variables CSS réutilisables */
+/* Déclaration des variables CSS globales réutilisables dans tout le fichier */
 :root {
-    --ece-blue:   #003a7d;   /* Bleu foncé ECE, couleur principale */
-    --ece-light:  #0056b3;   /* Bleu clair ECE, pour les hover et dégradés */
-    --ece-yellow: #f5a623;   /* Jaune ECE, pour les accents et bordures */
-    --bg-light:   #f4f2ee;   /* Fond gris clair, couleur de fond général du site */
+    --ece-blue:   #003a7d; /* bleu foncé officiel ECE, couleur principale du site */
+    --ece-light:  #0056b3; /* bleu plus clair, utilisé pour les hover et les liens */
+    --ece-yellow: #f5a623; /* jaune ECE, utilisé pour les badges et bordures d'avatar */
+    --bg-light:   #f4f2ee; /* fond gris beige de toutes les pages, inspiré de LinkedIn */
 }
 
-/* Global */
-
-/* Style de base appliqué à toute la page */
+/* Style de base appliqué à l'ensemble du document */
 body {
-    background-color: var(--bg-light);              /* Fond gris clair défini plus haut */
-    font-family: 'Segoe UI', Arial, sans-serif;     /* Police moderne et lisible */
-    color: #333;                                  /* Couleur du texte : gris foncé */
+    background-color: var(--bg-light);          /* fond gris beige sur toutes les pages */
+    font-family: 'Segoe UI', Arial, sans-serif; /* police lisible, priorité Segoe UI sur Windows */
+    color: #333;                                /* texte gris foncé, moins agressif que le noir pur */
 }
 
-/* Couleur des liens par défaut */
-a { color: var(--ece-light); }
-/* Couleur des liens au survol */
-a:hover { color: var(--ece-blue); }
+a { color: var(--ece-light); }      /* tous les liens en bleu ECE par défaut */
+a:hover { color: var(--ece-blue); } /* au survol on passe au bleu plus foncé */
 
-/* Navbar */
-
-/* Classe personnalisée pour le fond bleu ECE de la navbar Bootstrap */
-.bg-ece { background-color: var(--ece-blue) !important; }
+/* navbar */
+.bg-ece { background-color: var(--ece-blue) !important; } /* Classe utilitaire pour forcer le fond bleu ECE */
 
 /* Badge logo "ECEin" affiché dans la navbar à gauche */
 .ece-logo-badge {
-    background: white;           /* Fond blanc pour faire ressortir le logo */
-    color: var(--ece-blue);        /* Texte bleu ECE */
-    font-weight: 900;              /* Texte très gras */
-    font-size: 1rem;               /* Taille normale */
-    padding: 2px 8px;              /* Espacement intérieur */
-    border-radius: 6px;            /* Coins arrondis */
-    letter-spacing: 1px;           /* Espacement entre les lettres */
+    background: white;      /* fond blanc pour contraster avec la navbar bleue */
+    color: var(--ece-blue); /* texte en bleu ECE */
+    font-weight: 900;       /* texte très gras pour l'effet logo marquant */
+    font-size: 1rem;        /* taille identique au texte courant */
+    padding: 2px 8px;       /* espacement interne horizontal et vertical */
+    border-radius: 6px;     /* coins légèrement arrondis */
+    letter-spacing: 1px;    /* espacement entre les lettres pour l'effet logo */
 }
 
-/* Style des liens de navigation dans la navbar */
+/* Style commun à tous les liens de navigation dans la navbar */
 .navbar .nav-link {
-    text-align: center;                            /* Texte centré sous l'icône */
-    font-size: 0.75rem;                            /* Texte petit comme LinkedIn */
-    color: rgba(255,255,255,0.75) !important;    /* Blanc semi-transparent par défaut */
-    padding: 6px 14px;                             /* Espacement autour du lien */
-    border-radius: 6px;                            /* Coins arrondis au survol */
-    transition: background 0.2s;                   /* Animation fluide au survol */
+    text-align: center;             /* centre le texte et l'icône sous les liens */
+    font-size: 0.75rem;             /* texte petit sous les icônes de navigation */
+    color: rgba(255,255,255,0.75) !important; /* blanc semi-transparent quand inactif */
+    padding: 6px 14px;              /* espace autour de chaque lien */
+    border-radius: 6px;             /* coins arrondis pour l'effet de surbrillance */
+    transition: background 0.2s;    /* animation douce de 0.2s au survol */
 }
-/* Lien actif ou survolé : fond légèrement blanc et texte blanc plein */
+/* Lien survolé ou page active : fond blanc translucide et texte blanc plein */
 .navbar .nav-link:hover,
 .navbar .nav-link.active {
-    background: rgba(255,255,255,0.15);    /* Fond blanc transparent au survol */
-    color: #fff !important;                /* Texte blanc pur */
+    background: rgba(255,255,255,0.15); /* léger voile blanc au survol */
+    color: #fff !important;             /* texte blanc plein sur la page active */
 }
-/* Taille des icônes Bootstrap Icons dans la navbar */
+/* Icônes dans la navbar légèrement plus grandes que le petit texte en dessous */
 .navbar .nav-link i { font-size: 1.2rem; }
+
+/* Pastille rouge de compteur posée sur les icônes cloche et messagerie */
+.badge-notif {
+    position: absolute;     /* positionnée par rapport au parent position-relative */
+    top: 4px;               /* décalage depuis le haut de l'icône parente */
+    right: 4px;             /* décalage depuis la droite de l'icône parente */
+    background: #e03b3b;    /* rouge vif pour capter l'attention */
+    color: white;           /* chiffre en blanc sur fond rouge */
+    border-radius: 50%;     /* cercle parfait quel que soit le contenu */
+    font-size: 0.6rem;      /* très petit pour ne pas déborder sur l'icône */
+    width: 16px;            /* largeur fixe pour un cercle régulier */
+    height: 16px;           /* hauteur fixe identique à la largeur */
+    display: flex;          /* flexbox pour centrer le chiffre dans le cercle */
+    align-items: center;    /* centrage vertical du chiffre */
+    justify-content: center;/* centrage horizontal du chiffre */
+    font-weight: bold;      /* chiffre en gras pour la lisibilité */
+}
+
+/* Toutes les cards du site : coins arrondis, ombre légère, sans bordure */
+.card {
+    border: none;           /* supprime la bordure par défaut Bootstrap */
+    border-radius: 12px;    /* coins bien arrondis pour un look moderne */
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1); /* ombre subtile effet "flottant" */
+    margin-bottom: 12px;    /* espace entre les cards dans le fil */
+}
+
+/* En-tête de card avec coins arrondis uniquement en haut */
+.card-header { border-radius: 12px 12px 0 0 !important; }
+
+/* Fil d'actualité */
+.post-card { transition: box-shadow 0.2s; } /*transition douce sur l'ombre */
+/* Au survol d'un post : ombre renforcée pour un effet interactif */
+.post-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+
+/* Images et vidéos embarquées dans les posts du fil */
+.post-media img,
+.post-media video {
+    width: 100%;        /* prend toute la largeur disponible du post */
+    max-height: 400px;  /* limite la hauteur pour ne pas casser le fil */
+    object-fit: cover;  /* recadre le média sans déformer les proportions */
+    border-radius: 8px; /* coins arrondis cohérents avec le reste du design */
+    margin-top: 10px;   /* espace entre le texte du post et le média */
+}
+
+.reaction-btn {         /* Boutons de réaction like / love / bravo sous chaque post */
+    background: none;   /* pas de fond par défaut, bouton transparent */
+    border: none;       /* pas de bordure par défaut */
+    color: #666;        /* gris neutre quand l'utilisateur n'a pas réagi */
+    font-size: 0.9rem;  /* légèrement plus petit que le texte normal */
+    padding: 6px 12px;  /* espace interne pour une zone de clic confortable */
+    border-radius: 6px; /* coins arrondis au survol */
+    cursor: pointer;    /* curseur main pour indiquer l'interactivité */
+    transition: background 0.15s, color 0.15s; /* animation courte pour un ressenti réactif */
+}
+/* Au survol d'un bouton réaction : fond gris clair et texte bleu ECE */
+.reaction-btn:hover  { background: #e8e8e8; color: var(--ece-blue); }
+/* Quand l'utilisateur a déjà réagi : texte bleu ECE et gras */
+.reaction-btn.active { color: var(--ece-blue); font-weight: 600; }
+
+/* Profil */
+.cover-photo {          /* style de la photo de couverture */
+    width: 100%;        /* occupe toute la largeur de la card */
+    height: 200px;      /* hauteur fixe pour toutes les couvertures */
+    object-fit: cover;  /* remplit la zone sans déformer la photo */
+    border-radius: 12px 12px 0 0; /* coins arrondis uniquement en haut de la card */
+}
+
+.profile-avatar {       /* Avatar circulaire qui chevauche la photo de couverture */
+    width: 100px;       /* largeur fixe de l'avatar */
+    height: 100px;      /* hauteur fixe identique pour un carré parfait */
+    object-fit: cover;  /* recadre la photo dans le cercle sans déformer */
+    border: 4px solid #fff; /* contour blanc pour détacher l'avatar du fond */
+    border-radius: 50%; /* transforme le carré en cercle */
+    margin-top: -50px;  /* remonte de 50px pour chevaucher la photo de couverture */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* ombre pour donner de la profondeur */
+}
+
+/* Réseau */
+.friend-card {          /* Card d'un ami dans la page réseau social */
+    text-align: center; /* centre photo, nom et boutons dans la card */
+    padding: 16px;      /* espace interne autour du contenu */
+    cursor: pointer;    /* indique que la card est cliquable */
+    transition: transform 0.2s, box-shadow 0.2s; /* anime l'élévation au survol */
+}
+
+.friend-card:hover {                         /* Au survol d'une card ami : légère élévation vers le haut */
+    transform: translateY(-3px);             /* monte de 3 pixels pour l'effet "soulèvement" */
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15); /* ombre plus prononcée sous la card */
+}
+
+.friend-card img {      /* Photo de profil de l'ami dans sa card */
+    width: 70px;        /* largeur de l'avatar dans la card ami */
+    height: 70px;       /* hauteur identique pour un cercle parfait */
+    object-fit: cover;  /* recadre la photo dans le cercle */
+    border-radius: 50%; /* cercle parfait */
+    border: 3px solid var(--ece-yellow); /* bordure jaune ECE pour les distinguer */
+    margin-bottom: 8px; /* espace entre la photo et le nom en dessous */
+}
+
+/* Messagerie */
+.chat-box {             /* Zone de messages dans la page de messagerie privée */
+    height: 400px;      /* hauteur fixe pour la fenêtre de chat */
+    overflow-y: auto;   /* scroll vertical si les messages dépassent la hauteur */
+    padding: 16px;      /* espace interne autour des bulles */
+    background: #fff;   /* fond blanc pour la zone de messages */
+    border-radius: 8px; /* coins arrondis cohérents avec le design */
+}
+
+.msg-sent {             /* Conteneur d'un message envoyé par l'utilisateur courant */
+    text-align: right;  /* aligne la bulle à droite comme dans les messageries */
+    margin-bottom: 10px;/* espace entre les messages */
+}
+
+.msg-sent span {                        /* Bulle bleue ECE pour les messages que j'ai envoyés */
+    background: var(--ece-blue);        /* fond bleu ECE pour mes messages */
+    color: white;                       /* texte blanc sur fond bleu */
+    padding: 8px 14px;                  /* espace interne dans la bulle */
+    border-radius: 18px 18px 4px 18px;  /* coin bas-droit carré = style bulle SMS */
+    display: inline-block;              /* permet de contrôler la largeur max */
+    max-width: 70%;                     /* la bulle ne dépasse pas 70% de la largeur */
+}
+
+.msg-received {             /* Conteneur d'un message reçu de l'interlocuteur */
+    text-align: left;       /* aligne la bulle à gauche */
+    margin-bottom: 10px;    /* espace entre les messages */
+}
+
+.msg-received span {        /* Bulle gris clair pour les messages reçus */
+    background: #e4e6eb;    /* fond gris clair pour les messages reçus */
+    color: #333;            /* texte gris foncé lisible sur fond clair */
+    padding: 8px 14px;      /* espace interne dans la bulle */
+    border-radius: 18px 18px 18px 4px; /* coin bas-gauche carré = style bulle reçue */
+    display: inline-block;  /* permet de contrôler la largeur max */
+    max-width: 70%;         /* la bulle ne dépasse pas 70% de la largeur */
+}
+
+.msg-time {                 /* Heure affichée en tout petit sous chaque bulle de message */
+    font-size: 0.7rem;      /* très petit pour ne pas encombrer la conversation */
+    color: #aaa;            /* gris clair discret */
+    margin-top: 2px;        /* petit espace entre la bulle et l'heure */
+}
+
+/* Emploi */
+.job-card .badge { font-size: 0.8rem; } /* Badge de type de contrat légèrement agrandir les badges pour la lisibilité */
+
+/* Couleurs distinctes selon le type de contrat */
+.badge-CDI        { background-color: #198754; } /* vert pour CDI = contrat stable */
+.badge-CDD        { background-color: #0d6efd; } /* bleu pour CDD */
+.badge-Stage      { background-color: #fd7e14; } /* orange pour Stage */
+.badge-Alternance { background-color: #6f42c1; } /* violet pour Alternance */
+.badge-Freelance  { background-color: #20c997; } /* turquoise pour Freelance */
+
+/* Connexion et Inscription */
+.auth-wrapper {             /*Conteneur plein écran centré */
+    min-height: 100vh;      /* occupe toute la hauteur de la fenêtre */
+    display: flex;          /* flexbox pour centrer la card */
+    align-items: center;    /* centrage vertical de la card dans la page */
+    justify-content: center;/* centrage horizontal de la card dans la page */
+    background: linear-gradient(135deg, var(--ece-blue) 0%, var(--ece-light) 100%); /* dégradé bleu diagonal */
+}
+
+.auth-card {                /*Card blanche du formulaire de connexion ou d'inscription */
+    width: 100%;            /* prend toute la largeur disponible jusqu'au max-width */
+    max-width: 420px;       /* largeur maximale pour ne pas s'étirer sur grand écran */
+    border-radius: 16px;    /* coins bien arrondis */
+    padding: 32px;          /* espace interne généreux pour aérer le formulaire */
+    background: #fff;       /* fond blanc pour contraster avec le fond bleu */
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2); /* ombre prononcée pour ressortir du fond */
+}
+
+/* Administration */
+.admin-table th { background-color: var(--ece-blue); color: #fff; } /* fond bleu ECE, texte blanc */
+
+/* Sidebar */
+.sidebar-card { position: sticky; top: 80px; } /* 80px = hauteur approximative de la navbar */
+
+/* Jours Spéciaux */
+.special-day-banner {            /* Bannière festive affichée par JS */
+    background: linear-gradient(90deg, #ff6b6b, #ffd93d); /* dégradé rouge vers jaune festif */
+    color: white;                /* texte blanc sur fond coloré */
+    text-align: center;          /* message centré dans la bannière */
+    padding: 8px;                /* espace interne autour du texte */
+    font-weight: 600;            /* texte en demi-gras pour la lisibilité */
+    border-radius: 8px;          /* coins arrondis cohérents avec le design */
+    margin-bottom: 12px;         /* espace sous la bannière avant le contenu */
+    animation: fadeIn 0.6s ease; /* apparition animée depuis le haut */
+}
+
+/* Animation d'entrée de la bannière : glisse depuis le haut en fondu */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Utilitaire */
+.text-ece    { color: var(--ece-blue) !important; }                             /* Applique la couleur bleue ECE sur du texte */
+.btn-ece     { background-color: var(--ece-blue); color: white; border: none; } /* Bouton principal bleu ECE utilisé sur tout le site */
+.btn-ece:hover { background-color: var(--ece-light); color: white; }            /* Couleur de survol du bouton ECE : bleu légèrement plus clair */
+.divider     { border: none; border-top: 1px solid #e0e0e0; margin: 12px 0; }   /* Ligne de séparation fine utilisée dans les posts et les sections */
