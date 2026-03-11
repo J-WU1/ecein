@@ -1,7 +1,7 @@
 # ECE In — Guide d'installation et de démarrage
 
 Réseau social professionnel pour la communauté ECE Paris.  
-Projet Web ING2 2026 — Stack : PHP, MySQL, Bootstrap 5, jQuery/AJAX.
+Projet Web ING3 2026 — Stack : PHP, MySQL, Bootstrap 5, jQuery/AJAX.
 
 ---
 
@@ -185,13 +185,3 @@ ecein/
 | jQuery 3.7         | Requêtes AJAX, DOM                         |
 | AJAX               | Réactions, commentaires, chat, amis        |
 
----
-
-## Notes pour la soutenance
-
-- Tout le code est **commenté** (sections claires dans chaque fichier)
-- L'architecture suit le modèle **client-serveur** décrit dans l'exemple fourni
-- Les endpoints AJAX sont dans le dossier `api/` (séparation claire front/back)
-- La fonction `e()` (dans `auth.php`) protège **toutes** les sorties HTML contre les failles XSS
-- Les requêtes SQL utilisent **des requêtes préparées** (`prepare` / `bind_param`) pour se protéger des injections SQL
-- Le polling toutes les **3 secondes** simule un chat temps réel sans WebSocket (adapté à WAMP/XAMPP)
